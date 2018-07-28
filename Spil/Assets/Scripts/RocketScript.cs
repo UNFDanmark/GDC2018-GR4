@@ -10,6 +10,7 @@ public class RocketScript : MonoBehaviour {
     public string inputHorizontalAxis;
     public string inputVerticalAxis;
     public float maxRotationSpeed = 8;
+    public float backwardsMoveFactor = 0.7f;
     public float respawnTime;
     private float respawnCounter = -1;
 
@@ -43,7 +44,7 @@ public class RocketScript : MonoBehaviour {
         //rotate via user input
         transform.Rotate(0, rotateSpeed * Input.GetAxis(inputHorizontalAxis) * Time.deltaTime, 0);
 
-        if (transform.position.y < -5)
+        if (transform.position.y < -5) //player has fallen in the water. it is now dead.
         {
             gameHandler.RespawnTime(playerNumber, respawnCounter - Time.time);
 
@@ -60,7 +61,6 @@ public class RocketScript : MonoBehaviour {
     }
     private void Respawn()
     {
-        //player has fallen in the water. it is now dead.
         //player is teleported to a spawn point.
         transform.position = spawnPoint;
         rb.velocity = new Vector3(0, 0, 0);
@@ -70,11 +70,8 @@ public class RocketScript : MonoBehaviour {
     
     private void FixedUpdate()
     {
-        float k = Input.GetAxis(inputVerticalAxis) < 0 ? 0.7f : 1;
-        rb.AddForce(transform.forward * thrust* Input.GetAxis(inputVerticalAxis) * k, ForceMode.Force);
-
-
-        //rb.AddForce(-rb.velocity.normalized * airResistance * rb.velocity.sqrMagnitude, ForceMode.Impulse);
-
+        float moveFactor = Input.GetAxis(inputVerticalAxis) < 0 ? backwardsMoveFactor : 1;
+        rb.AddForce(transform.forward * thrust* Input.GetAxis(inputVerticalAxis) * moveFactor, ForceMode.Force);
+        
     }
 }
