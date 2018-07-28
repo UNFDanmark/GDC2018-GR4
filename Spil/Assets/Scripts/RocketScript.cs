@@ -45,7 +45,8 @@ public class RocketScript : MonoBehaviour {
 
         if (transform.position.y < -5)
         {
-            
+            gameHandler.RespawnTime(playerNumber, respawnCounter - Time.time);
+
             
             if (respawnCounter == -1)
             {
@@ -69,7 +70,8 @@ public class RocketScript : MonoBehaviour {
     
     private void FixedUpdate()
     {
-        rb.AddForce(transform.forward * thrust* Input.GetAxis(inputVerticalAxis), ForceMode.Force);
+        float k = Input.GetAxis(inputVerticalAxis) < 0 ? 0.7f : 1;
+        rb.AddForce(transform.forward * thrust* Input.GetAxis(inputVerticalAxis) * k, ForceMode.Force);
 
 
         //rb.AddForce(-rb.velocity.normalized * airResistance * rb.velocity.sqrMagnitude, ForceMode.Impulse);
