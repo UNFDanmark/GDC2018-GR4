@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Seal
+  - Ice
   layers:
   - Default
   - TransparentFX
@@ -15,8 +16,8 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
+  - Seal
+  - Players
   - 
   - 
   - 

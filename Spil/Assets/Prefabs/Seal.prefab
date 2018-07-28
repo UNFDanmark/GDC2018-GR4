@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 135169287338740228}
   - component: {fileID: 114194398282604648}
   - component: {fileID: 54776277713880812}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Seal
   m_TagString: Seal
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &114194398282604648
 MonoBehaviour:
@@ -113,7 +113,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 54776277713880812}
-  direction: {x: 1, y: 0, z: 0}
+  sealSpeed: 2
+  maxIceDistance: 1
+  state: 0
 --- !u!135 &135169287338740228
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -121,7 +123,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1838120730745512}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
