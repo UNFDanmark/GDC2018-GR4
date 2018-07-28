@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33177440417517742}
   - component: {fileID: 23578055019204882}
   - component: {fileID: 136221405919642014}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 54898383613284660}
   - component: {fileID: 114466709993566252}
   - component: {fileID: 64276963038695548}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,14 +55,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1597144560144918}
-  m_LocalRotation: {x: 0.000004505664, y: 0.2141931, z: 0.000005441438, w: 0.9767913}
-  m_LocalPosition: {x: 0.25, y: 0.41801, z: -6.84}
+  m_LocalRotation: {x: -0.000003780778, y: 0.99514, z: 0.0000059679132, w: 0.09847075}
+  m_LocalPosition: {x: -5.77, y: 0.4, z: -1.05}
   m_LocalScale: {x: 1.8363, y: 0.36726, z: 1.8610901}
   m_Children:
   - {fileID: 4988703231490544}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 24.736002, z: 0.001}
+  m_LocalEulerAnglesHint: {x: -0.001, y: 168.69801, z: 0}
 --- !u!4 &4988703231490544
 Transform:
   m_ObjectHideFlags: 1
@@ -70,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1316973950720702}
   m_LocalRotation: {x: -0.0000055666123, y: -1.7507067e-11, z: -0.0000043500677, w: 1}
-  m_LocalPosition: {x: -0, y: 1.6, z: 0}
+  m_LocalPosition: {x: 0, y: 1.6, z: -0.24}
   m_LocalScale: {x: 0.6, y: 0.8, z: 0.8}
   m_Children: []
   m_Father: {fileID: 4653733372846780}
@@ -201,12 +201,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 200
-  thrust: 0.6
+  thrust: 20
   airResistance: 0.004
   rb: {fileID: 54898383613284660}
   inputHorizontalAxis: P1_Horizontal
   inputVerticalAxis: P1_Vertical
   maxRotationSpeed: 8
+  respawnTime: 5
+  gameHandler: {fileID: 0}
+  playerNumber: 1
 --- !u!136 &136221405919642014
 CapsuleCollider:
   m_ObjectHideFlags: 1
