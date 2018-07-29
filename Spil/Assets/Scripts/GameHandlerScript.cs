@@ -13,17 +13,21 @@ public class GameHandlerScript : MonoBehaviour {
     private float startTime;
     public float gameLength;
 
+    float[] respawnTimes = new float[2];
+
     public void RespawnTime(int player, float time)
     {
+        respawnTimes[player-1] = time;
         Draw();
-        if (time <= 0) return;
-        if(player == 1)
+        if (respawnTimes[0] > 0)
         {
-            P1Text.text += "\nYou respawn in: " + Mathf.CeilToInt(time);
+
+            P1Text.text += "\nYou respawn in: " + Mathf.CeilToInt(respawnTimes[0]);
         }
-        else
+        if (respawnTimes[1] > 0)
         {
-            P2Text.text += "\nYou respawn in: " + Mathf.CeilToInt(time);
+
+            P2Text.text += "\nYou respawn in: " + Mathf.CeilToInt(respawnTimes[1]);
         }
     }
 
