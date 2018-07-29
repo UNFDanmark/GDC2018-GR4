@@ -21,6 +21,15 @@ public class RocketScript : MonoBehaviour {
     public GameHandlerScript gameHandler;
     public int playerNumber;
 
+    public float killDepth = -5f;
+    public float respawnHeight = 1.5f;
+
+    public STATE state = STATE.ALIVE;
+    public enum STATE
+    {
+        ALIVE, DEAD, RESPAWNING
+    }
+
 	// Use this for initialization
 	void Start () {
         spawnPoint = transform.position;
@@ -41,10 +50,16 @@ public class RocketScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        //rotate via user input
-        transform.Rotate(0, rotateSpeed * Input.GetAxis(inputHorizontalAxis) * Time.deltaTime, 0);
+        if (transform.position.y < killDepth) //player has fallen in the water. it is now dead.
+        {
+            state = STATE.DEAD;
+        }else if(transform.position.y < respawnHeight)
+        {
+            state = STATE.ALIVE;
+        }
 
-        if (transform.position.y < -5) //player has fallen in the water. it is now dead.
+        
+        if (state==STATE.DEAD) //when the player is dead, do respawn counter
         {
             gameHandler.RespawnTime(playerNumber, respawnCounter - Time.time);
 
@@ -57,6 +72,11 @@ public class RocketScript : MonoBehaviour {
             {
                 Respawn();
             }
+        }else if(state == STATE.ALIVE)
+        {
+            //rotate via user input
+            transform.Rotate(0, rotateSpeed * Input.GetAxis(inputHorizontalAxis) * Time.deltaTime, 0);
+
         }
     }
     private void Respawn()
@@ -66,12 +86,15 @@ public class RocketScript : MonoBehaviour {
         rb.velocity = new Vector3(0, 0, 0);
         transform.rotation = spawnRotation;
         respawnCounter = -1;
+        state = STATE.ALIVE;
     }
     
     private void FixedUpdate()
     {
-        float moveFactor = Input.GetAxis(inputVerticalAxis) < 0 ? backwardsMoveFactor : 1;
-        rb.AddForce(transform.forward * thrust* Input.GetAxis(inputVerticalAxis) * moveFactor, ForceMode.Force);
-        
+        if(state == STATE.ALIVE) { 
+            float moveFactor = Input.GetAxis(inputVerticalAxis) < 0 ? backwardsMoveFactor : 1;
+            rb.AddForce(transform.forward * thrust* Input.GetAxis(inputVerticalAxis) * moveFactor, ForceMode.Force);
+        }
+
     }
 }
