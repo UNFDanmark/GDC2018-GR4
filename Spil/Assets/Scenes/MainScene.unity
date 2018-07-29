@@ -523,6 +523,7 @@ MonoBehaviour:
   gameHandler: {fileID: 373947457}
   playerNumber: 2
   killDepth: -5
+  respawnHeight: 1.5
   state: 0
 --- !u!54 &404651189
 Rigidbody:
@@ -1011,7 +1012,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: f6601f7c2b6b37a4d9dfb2a06b8c9c36, type: 2}
+  - {fileID: 2100000, guid: fac6f6841d89b4f45b78170b8893a5dc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2324,6 +2325,7 @@ MonoBehaviour:
   gameHandler: {fileID: 373947457}
   playerNumber: 1
   killDepth: -5
+  respawnHeight: 1.5
   state: 0
 --- !u!54 &2018492558
 Rigidbody:
