@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class SealSpawnScript : MonoBehaviour {
 
-    public Vector3 l1 = new Vector3(-15, 0.5f, 6);
-    public Vector3 l2 = new Vector3(-5, 0.5f, -18.7f);
-    public Vector3 l3 = new Vector3(-15.7f, 0.5f, -18);
-    public Vector3 l4 = new Vector3(23, 0.5f, 6.75f);
+    static float offset = 0;
+    static float spawndepth = 1.9f;
+    public Vector3 l1 = new Vector3(-15- offset,    spawndepth, 6);
+    public Vector3 l2 = new Vector3(-5+ offset,     spawndepth, -18.7f);
+    public Vector3 l3 = new Vector3(-15.7f- offset, spawndepth, -18);
+    public Vector3 l4 = new Vector3(23+ offset,     spawndepth, 6.75f);
 
     public GameObject seal;
 
@@ -39,7 +41,9 @@ public class SealSpawnScript : MonoBehaviour {
 
     private Vector3 TargetPoint()
     {
-        return l4 + rightSpawn * Random.Range(0, 1f);
+        Vector3 target = l4 + rightSpawn * Random.Range(0, 1f);
+        print(target.x + "," + target.y + "," + target.z);
+        return target;
     }
 
     public GameObject SpawnSeal()
@@ -47,12 +51,12 @@ public class SealSpawnScript : MonoBehaviour {
         GameObject added = Instantiate(seal);
         if (Random.Range(0, 2) == 0) { 
             added.transform.position = (SpawnPoint());
-            added.transform.LookAt(TargetPoint());
+            added.GetComponent<SealScript>().SetTarget(TargetPoint());
         }
         else
         {
             added.transform.position = (TargetPoint());
-            added.transform.LookAt(SpawnPoint());
+            added.GetComponent<SealScript>().SetTarget(SpawnPoint());
         }
         return added;
              
