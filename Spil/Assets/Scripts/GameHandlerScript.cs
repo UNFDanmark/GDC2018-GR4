@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameHandlerScript : MonoBehaviour {
@@ -15,6 +16,9 @@ public class GameHandlerScript : MonoBehaviour {
 
     float[] respawnTimes = new float[2];
 
+    public GameDataScript gameDataScript; //keeps track of points and passes it on to the end screen
+    
+    //update respawn time for a player
     public void RespawnTime(int player, float time)
     {
         respawnTimes[player-1] = time;
@@ -42,9 +46,7 @@ public class GameHandlerScript : MonoBehaviour {
 
         if(totalTime <= 0)
         {
-            //Game over!!!
-            //TODO if players have same number of points, say something else
-            gameTimer.text = "GAME OVER!\n" + (points[0] > points[1] ? "PLAYER 1 WON" : "PLAYER 2 WON");
+            SceneManager.LoadScene("EndScene");
         }
     }
 
@@ -69,9 +71,9 @@ public class GameHandlerScript : MonoBehaviour {
     {
         points[playerNumber-1]++;
         Draw();
+        gameDataScript.points = points;
     }
     
-    //this is seal
 
     private void Draw()
     {

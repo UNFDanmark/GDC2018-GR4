@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Seal
   - Ice
+  - GameData
   layers:
   - Default
   - TransparentFX
