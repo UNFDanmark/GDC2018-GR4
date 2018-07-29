@@ -13,14 +13,11 @@ public class EndScreenScript : MonoBehaviour {
 	// Use this for initialization
     public void Start()
     {
-        print("start");
         //add win message
         int[] points = GameObject.FindGameObjectWithTag("GameData").GetComponent<GameDataScript>().points;
 
         string winMessage = "";
-
-        print("got points");
-        print("points are" + points[0] + " " + points[1]);
+        
         if (points[0] == points[1])
         {
             //both players had equal points when time ran out
@@ -46,6 +43,7 @@ public class EndScreenScript : MonoBehaviour {
 
     public void OnClickRestart()
     {
+        Destroy(GameObject.FindGameObjectWithTag("GameData"));
         SceneManager.LoadScene("MainScene");
     }
 
