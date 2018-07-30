@@ -212,15 +212,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4653733372846780, guid: 729ee587dcc12d94085cc87099e8d3b6, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 16.93
+      value: 16.72
       objectReference: {fileID: 0}
     - target: {fileID: 4653733372846780, guid: 729ee587dcc12d94085cc87099e8d3b6, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.4
+      value: 2.37
       objectReference: {fileID: 0}
     - target: {fileID: 4653733372846780, guid: 729ee587dcc12d94085cc87099e8d3b6, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -1.05
+      value: 13.78
       objectReference: {fileID: 0}
     - target: {fileID: 4653733372846780, guid: 729ee587dcc12d94085cc87099e8d3b6, type: 2}
       propertyPath: m_LocalRotation.x
@@ -324,6 +324,16 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114466709993566252, guid: 729ee587dcc12d94085cc87099e8d3b6,
+        type: 2}
+      propertyPath: initialPushOutOfIgloo
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 54898383613284660, guid: 729ee587dcc12d94085cc87099e8d3b6,
+        type: 2}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 729ee587dcc12d94085cc87099e8d3b6, type: 2}
@@ -726,6 +736,7 @@ MonoBehaviour:
   maxRotationSpeed: 8
   backwardsMoveFactor: 0.7
   respawnTime: 5
+  initialPushOutOfIgloo: 2
   gameHandler: {fileID: 373947457}
   playerNumber: 2
   killDepth: -5
@@ -1970,15 +1981,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: bc342f1846e6ed44b81c3f1e261e2077, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -31.71
+      value: -31.73
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bc342f1846e6ed44b81c3f1e261e2077, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.85
+      value: -6.14
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bc342f1846e6ed44b81c3f1e261e2077, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 20.099998
+      value: 21.71
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bc342f1846e6ed44b81c3f1e261e2077, type: 3}
       propertyPath: m_LocalRotation.x
@@ -3585,15 +3596,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4653733372846780, guid: 729ee587dcc12d94085cc87099e8d3b6, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -5.77
+      value: -5.59
       objectReference: {fileID: 0}
     - target: {fileID: 4653733372846780, guid: 729ee587dcc12d94085cc87099e8d3b6, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.4
+      value: 2.53
       objectReference: {fileID: 0}
     - target: {fileID: 4653733372846780, guid: 729ee587dcc12d94085cc87099e8d3b6, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -1.05
+      value: 15.45
       objectReference: {fileID: 0}
     - target: {fileID: 4653733372846780, guid: 729ee587dcc12d94085cc87099e8d3b6, type: 2}
       propertyPath: m_LocalRotation.x
@@ -3674,7 +3685,7 @@ Prefab:
     - target: {fileID: 64276963038695548, guid: 729ee587dcc12d94085cc87099e8d3b6,
         type: 2}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 64276963038695548, guid: 729ee587dcc12d94085cc87099e8d3b6,
         type: 2}
@@ -3685,6 +3696,16 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114466709993566252, guid: 729ee587dcc12d94085cc87099e8d3b6,
+        type: 2}
+      propertyPath: initialPushOutOfIgloo
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 54898383613284660, guid: 729ee587dcc12d94085cc87099e8d3b6,
+        type: 2}
+      propertyPath: m_Mass
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 729ee587dcc12d94085cc87099e8d3b6, type: 2}
@@ -4298,6 +4319,7 @@ MonoBehaviour:
   maxRotationSpeed: 8
   backwardsMoveFactor: 0.7
   respawnTime: 5
+  initialPushOutOfIgloo: 2
   gameHandler: {fileID: 373947457}
   playerNumber: 1
   killDepth: -5

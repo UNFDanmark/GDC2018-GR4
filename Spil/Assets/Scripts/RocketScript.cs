@@ -12,6 +12,7 @@ public class RocketScript : MonoBehaviour {
     public float maxRotationSpeed = 8;
     public float backwardsMoveFactor = 0.7f;
     public float respawnTime;
+    public float initialPushOutOfIgloo = 20;
     private float respawnCounter = -1;
 
     private Vector3 spawnPoint;
@@ -34,7 +35,9 @@ public class RocketScript : MonoBehaviour {
 	void Start () {
         spawnPoint = transform.position;
         spawnRotation = transform.rotation;
-	}
+
+        PushOutOfIgloo();
+    }
 
     void OnTriggerEnter(Collider collision)
     {
@@ -80,7 +83,8 @@ public class RocketScript : MonoBehaviour {
         }else if(state == STATE.ALIVE)
         {
             //rotate via user input
-            transform.Rotate(0, rotateSpeed * Input.GetAxis(inputHorizontalAxis) * Time.deltaTime, 0);
+            if(transform.position.y < 1.5f)
+                transform.Rotate(0, rotateSpeed * Input.GetAxis(inputHorizontalAxis) * Time.deltaTime, 0);
 
         }
     }
@@ -92,30 +96,34 @@ public class RocketScript : MonoBehaviour {
         transform.rotation = spawnRotation;
         respawnCounter = -1;
 
-        gameObject.GetComponent<MeshCollider>().enabled = true;
+        gameObject.GetComponent<BoxCollider>().enabled = true;
         state = STATE.ALIVE;
+
+        PushOutOfIgloo();
     }
 
-    public void OnCollisionEnter(Collision collision)
-    {
-       
+    private void PushOutOfIgloo() {
+        rb.AddForce(transform.forward * initialPushOutOfIgloo, ForceMode.VelocityChange);
     }
+    
 
     private void FixedUpdate()
     {
-        if(state == STATE.ALIVE) { 
-            float moveFactor = Input.GetAxis(inputVerticalAxis) < 0 ? backwardsMoveFactor : 1;
-            rb.AddForce(transform.forward * thrust* Input.GetAxis(inputVerticalAxis) * moveFactor, ForceMode.Force);
+        if(state == STATE.ALIVE) {
+            if (transform.position.y < 1.5f) { //prevents the player from moving when inside the igloo
+                float moveFactor = Input.GetAxis(inputVerticalAxis) < 0 ? backwardsMoveFactor : 1;
+                rb.AddForce(transform.forward * thrust * Input.GetAxis(inputVerticalAxis) * moveFactor, ForceMode.Force);
 
-            ParticleSystem p = gameObject.GetComponentInChildren<ParticleSystem>();
+                ParticleSystem p = gameObject.GetComponentInChildren<ParticleSystem>();
 
-            if(Input.GetAxis(inputVerticalAxis) > 0)
-            {
-                p.Play();
-            }
-            else
-            {
-                p.Stop();
+                if (Input.GetAxis(inputVerticalAxis) > 0)
+                {
+                    p.Play();
+                }
+                else
+                {
+                    p.Stop();
+                }
             }
 
         }
