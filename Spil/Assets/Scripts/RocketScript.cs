@@ -48,7 +48,7 @@ public class RocketScript : MonoBehaviour {
 
         if (collision.gameObject.CompareTag("KillBox"))
         {
-            gameObject.GetComponent<MeshCollider>().enabled = false;
+            gameObject.GetComponent<BoxCollider>().enabled = false;
         }
 
     }
