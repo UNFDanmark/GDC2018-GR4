@@ -13,8 +13,15 @@ public class GameHandlerScript : MonoBehaviour {
 
     private float startTime;
     public float gameLength;
+    float breakIce1 = 80,
+        breakIce2 = 40;
+    private bool iceBroken1, iceBroken2;
+
+
+    public GameObject[] iceHoles;
 
     float[] respawnTimes = new float[2];
+
 
     public GameDataScript gameDataScript; //keeps track of points and passes it on to the end screen
     
@@ -43,8 +50,19 @@ public class GameHandlerScript : MonoBehaviour {
         int seconds = totalTime % 60;
 
         gameTimer.text = Add0s(minutes) + ":" + Add0s(seconds);
-
-        if(totalTime <= 0)
+        if (totalTime < breakIce1 && !iceBroken1)
+        {
+            iceBroken1 = true;
+            //break ice
+            iceHoles[0].GetComponent<IceScript>().StartSinking();
+        }
+        if (totalTime < breakIce2 && !iceBroken2)
+        {
+            iceBroken2 = true;
+            //break ice
+            iceHoles[1].GetComponent<IceScript>().StartSinking();
+        }
+        if (totalTime <= 0)
         {
             SceneManager.LoadScene("EndScene");
         }
@@ -65,6 +83,22 @@ public class GameHandlerScript : MonoBehaviour {
         startTime = Time.time;
         points = new int[numberOfPlayers];
         Draw();
+
+        //shuffle the pieces in the list
+        iceHoles = Reshuffle(iceHoles);
+    }
+
+    GameObject[] Reshuffle(GameObject[] list)
+    {
+        // Knuth shuffle algorithm :: courtesy of Wikipedia :)
+        for (int t = 0; t < list.Length; t++)
+        {
+            GameObject tmp = list[t];
+            int r = Random.Range(t, list.Length);
+            list[t] = list[r];
+            list[r] = tmp;
+        }
+        return list;
     }
 
     public void AddPoint(int playerNumber)
