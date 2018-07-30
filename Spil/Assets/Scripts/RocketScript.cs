@@ -25,7 +25,7 @@ public class RocketScript : MonoBehaviour {
     public float killDepth = -5f;
     public float respawnHeight = 1.5f;
 
-    public float bounceMultiplier = 1.3f;
+    public float bounceMultiplierP1 = 0.3f; //this factor only applies to Player 1, as bouncing is handled only by that player
 
     public STATE state = STATE.ALIVE;
     public enum STATE
@@ -43,7 +43,7 @@ public class RocketScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider collision)
     {
-        print("collision with object w tag: " + collision.gameObject.tag);
+        print("collision with trigger w tag: " + collision.gameObject.tag);
         if (collision.gameObject.tag.Equals("Seal"))
         {
             //we've hit a seal!
@@ -55,10 +55,21 @@ public class RocketScript : MonoBehaviour {
         {
             gameObject.GetComponent<BoxCollider>().enabled = false;
         }
-        if(collision.gameObject.tag.Equals("Player2")){
-            //collision.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.Reflect(direction, collision.contacts[0].normal) * bounceMultiplier,     ForceMode.Impulse);
-        }
 
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //print("collision with object w tag: " + collision.gameObject.tag);
+
+        if (collision.gameObject.tag.Equals("Player2"))
+        {
+            print("DO THE BOUNCE!");
+            Vector3 normal = gameObject.transform.position - collision.gameObject.transform.position;
+            collision.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.Reflect(collision.gameObject.transform.forward, normal) * bounceMultiplierP1, ForceMode.Impulse);
+            gameObject.GetComponent<Rigidbody>().AddForce(Vector3.Reflect(transform.forward, normal) * bounceMultiplierP1, ForceMode.Impulse);
+        }
     }
 
     // Update is called once per frame

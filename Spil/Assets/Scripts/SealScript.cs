@@ -42,7 +42,7 @@ public class SealScript : MonoBehaviour {
         {
             Vector3 newPos = transform.position + dir * 0.01f;
             rb.position = (newPos);
-            print("Moved seal " + max);
+            //print("Moved seal " + max);
             max--;
             if (max < 1) return;
         }
