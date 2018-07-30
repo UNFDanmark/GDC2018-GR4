@@ -25,6 +25,8 @@ public class RocketScript : MonoBehaviour {
     public float killDepth = -5f;
     public float respawnHeight = 1.5f;
 
+    public float bounceMultiplier = 1.3f;
+
     public STATE state = STATE.ALIVE;
     public enum STATE
     {
@@ -52,6 +54,9 @@ public class RocketScript : MonoBehaviour {
         if (collision.gameObject.CompareTag("KillBox"))
         {
             gameObject.GetComponent<BoxCollider>().enabled = false;
+        }
+        if(collision.gameObject.tag.Equals("Player2")){
+            //collision.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.Reflect(direction, collision.contacts[0].normal) * bounceMultiplier,     ForceMode.Impulse);
         }
 
     }

@@ -55,7 +55,7 @@ public class IceScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.P))
         {
             StartSinking();
         }

@@ -335,6 +335,10 @@ Prefab:
       propertyPath: m_Mass
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1597144560144918, guid: 729ee587dcc12d94085cc87099e8d3b6, type: 2}
+      propertyPath: m_TagString
+      value: Player2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 729ee587dcc12d94085cc87099e8d3b6, type: 2}
   m_IsPrefabAsset: 0
