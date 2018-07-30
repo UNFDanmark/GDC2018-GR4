@@ -49,7 +49,16 @@ public class GameHandlerScript : MonoBehaviour {
         int minutes = (int)Mathf.Floor(totalTime / 60f);
         int seconds = totalTime % 60;
 
-        gameTimer.text = Add0s(minutes) + ":" + Add0s(seconds);
+        if(totalTime < 0)
+        {
+            //Overtime
+            gameTimer.text = "OVERTIME";
+        }
+        else{
+            //normal time
+            gameTimer.text = Add0s(minutes) + ":" + Add0s(seconds);
+        }
+
         if (totalTime < breakIce1 && !iceBroken1)
         {
             iceBroken1 = true;
@@ -62,9 +71,18 @@ public class GameHandlerScript : MonoBehaviour {
             //break ice
             iceHoles[1].GetComponent<IceScript>().StartSinking();
         }
-        if (totalTime <= 0)
+        if (totalTime <= 0 && points[0] != points[1])
         {
-            SceneManager.LoadScene("EndScene");
+            //SceneManager.LoadScene("EndScene");
+            if (points[0] > points[1])
+            {
+                SceneManager.LoadScene("EndScene Lilla");
+
+            }
+            else
+            {
+                SceneManager.LoadScene("EndScene Grøn");
+            }
         }
     }
 
