@@ -45,7 +45,12 @@ public class RocketScript : MonoBehaviour {
             Destroy(collision.gameObject);
             gameHandler.AddPoint(playerNumber);
         }
-        
+
+        if (collision.gameObject.CompareTag("KillBox"))
+        {
+            gameObject.GetComponent<MeshCollider>().enabled = false;
+        }
+
     }
 
     // Update is called once per frame
@@ -86,14 +91,33 @@ public class RocketScript : MonoBehaviour {
         rb.velocity = new Vector3(0, 0, 0);
         transform.rotation = spawnRotation;
         respawnCounter = -1;
+
+        gameObject.GetComponent<MeshCollider>().enabled = true;
         state = STATE.ALIVE;
     }
-    
+
+    public void OnCollisionEnter(Collision collision)
+    {
+       
+    }
+
     private void FixedUpdate()
     {
         if(state == STATE.ALIVE) { 
             float moveFactor = Input.GetAxis(inputVerticalAxis) < 0 ? backwardsMoveFactor : 1;
             rb.AddForce(transform.forward * thrust* Input.GetAxis(inputVerticalAxis) * moveFactor, ForceMode.Force);
+
+            ParticleSystem p = gameObject.GetComponentInChildren<ParticleSystem>();
+
+            if(Input.GetAxis(inputVerticalAxis) > 0)
+            {
+                p.Play();
+            }
+            else
+            {
+                p.Stop();
+            }
+
         }
 
     }

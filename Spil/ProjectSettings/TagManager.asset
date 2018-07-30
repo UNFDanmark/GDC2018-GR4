@@ -7,6 +7,7 @@ TagManager:
   - Seal
   - Ice
   - GameData
+  - KillBox
   layers:
   - Default
   - TransparentFX

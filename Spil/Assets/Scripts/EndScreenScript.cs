@@ -44,7 +44,7 @@ public class EndScreenScript : MonoBehaviour {
     public void OnClickRestart()
     {
         Destroy(GameObject.FindGameObjectWithTag("GameData"));
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("MainScene efter is");
     }
 
     // Update is called once per frame
