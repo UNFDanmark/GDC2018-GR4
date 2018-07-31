@@ -50,6 +50,11 @@ public class GameHandlerScript : MonoBehaviour {
         int minutes = (int)Mathf.Floor(totalTime / 60f);
         int seconds = totalTime % 60;
 
+        if (Input.GetAxis("Cancel")>0) {
+            //escape the map
+            SceneManager.LoadScene("StartScene");
+        }
+
         if(totalTime < 0)
         {
             //Overtime

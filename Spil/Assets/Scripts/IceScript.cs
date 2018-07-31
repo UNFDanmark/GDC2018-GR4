@@ -13,6 +13,8 @@ public class IceScript : MonoBehaviour {
         DEAD
     }
 
+    public GameObject snapSound;
+
     public STATE state = STATE.ALIVE;
 
     public float shrinkingTime = 5f,
@@ -35,7 +37,8 @@ public class IceScript : MonoBehaviour {
         this.state = state;
         print("new state: " + state);
         deltaTime = 0;
-        if(state == STATE.SINKING)
+        if(state==STATE.SHRINKING) snapSound.GetComponent<AudioSource>().Play();
+        if (state == STATE.SINKING)
         {
             //spawn killboxes
             foreach (GameObject box in killBoxes)
