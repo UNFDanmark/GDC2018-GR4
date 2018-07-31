@@ -29,17 +29,23 @@ public class RocketScript : MonoBehaviour {
     public float respawnHeight = 1.5f;
 
     public float bounceMultiplierP1 = 0.3f; //this factor only applies to Player 1, as bouncing is handled only by that player
+    public float extraGravityMultiplier = 100f;
 
     public STATE state = STATE.ALIVE;
     public enum STATE
     {
-        ALIVE, DEAD, RESPAWNING
+        ALIVE, FALLING, DEAD, RESPAWNING
     }
+
+    private bool extraFall = false;
+    ParticleSystem p;
 
 	// Use this for initialization
 	void Start () {
         spawnPoint = transform.position;
         spawnRotation = transform.rotation;
+        p = gameObject.GetComponentInChildren<ParticleSystem>();
+
 
         PushOutOfIgloo();
     }
@@ -56,7 +62,9 @@ public class RocketScript : MonoBehaviour {
 
         if (collision.gameObject.CompareTag("KillBox"))
         {
+            state = STATE.FALLING;
             gameObject.GetComponent<BoxCollider>().enabled = false;
+            extraFall = true;
         }
 
 
@@ -74,6 +82,11 @@ public class RocketScript : MonoBehaviour {
             gameObject.GetComponent<Rigidbody>().AddForce(Vector3.Reflect(transform.forward, normal) * bounceMultiplierP1, ForceMode.Impulse);
         }
     }
+    
+    private bool IsIn(float min, float max, float x)
+    {
+        return x >= min && x <= max;
+    }
 
     // Update is called once per frame
     void Update () {
@@ -87,11 +100,21 @@ public class RocketScript : MonoBehaviour {
             print("You're dead!");
             state = STATE.DEAD;
 
-            
-        }else if(transform.position.y < respawnHeight)
+
+        }
+        else if(transform.position.y < respawnHeight)
         {
             state = STATE.ALIVE;
         }
+
+        if (extraFall)
+        {
+            rb.AddForce(-rb.velocity.x, -1 * extraGravityMultiplier * (IsIn(-6.6f,18,rb.position.x)?1:0), -rb.velocity.z * (IsIn(-14.9f, 0.4f, rb.position.z) ? 1 : 0), ForceMode.Acceleration);
+            print("extra fall being added");
+        }
+
+
+        
 
         
         if (state==STATE.DEAD) //when the player is dead, do respawn counter
@@ -118,10 +141,12 @@ public class RocketScript : MonoBehaviour {
     private void Respawn()
     {
         //player is teleported to a spawn point.
-        transform.position = spawnPoint;
         rb.velocity = new Vector3(0, 0, 0);
+        transform.position = spawnPoint;
         transform.rotation = spawnRotation;
         respawnCounter = -1;
+        extraFall = false;
+        rb.
 
         gameObject.GetComponent<BoxCollider>().enabled = true;
         state = STATE.ALIVE;
@@ -141,8 +166,7 @@ public class RocketScript : MonoBehaviour {
                 float moveFactor = Input.GetAxis(inputVerticalAxis) < 0 ? backwardsMoveFactor : 1;
                 rb.AddForce(transform.forward * thrust * Input.GetAxis(inputVerticalAxis) * moveFactor, ForceMode.Force);
 
-                ParticleSystem p = gameObject.GetComponentInChildren<ParticleSystem>();
-
+                
                 if (Input.GetAxis(inputVerticalAxis) > 0)
                 {
                     p.Play();
@@ -159,6 +183,12 @@ public class RocketScript : MonoBehaviour {
                 }
             }
 
+        }
+        else
+        {
+            p.Stop();
+            RocketSound.GetComponent<AudioSource>().Stop();
+            rocketAudioPlaying = false;
         }
 
     }

@@ -30,12 +30,12 @@ public class EndScreenScript : MonoBehaviour {
         }else if (points[0] > points[1])
         {
             //player 1 (purple) had the most points
-            winMessage = "green: " + points[0] + "\nPurple: " + points[1];
+            winMessage = "Purple: " + points[0] + "\nGreen: " + points[1];
         }
         else
         {
             //player 2 (green) had the most points
-            winMessage = "Purple: " + points[1] + "\nGreen: " + points[0];
+            winMessage = "Green: " + points[1] + "\nPurple: " + points[0];
         }
         message.text = winMessage;
 

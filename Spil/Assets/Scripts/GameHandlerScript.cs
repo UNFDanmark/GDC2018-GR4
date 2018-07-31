@@ -13,9 +13,8 @@ public class GameHandlerScript : MonoBehaviour {
 
     private float startTime;
     public float gameLength;
-    float breakIce1 = 80,
-        breakIce2 = 40;
-    private bool iceBroken1, iceBroken2;
+    float[] breakIces = new float[] { 90, 60, 40, 20};//{ 90, 60, 30 };
+    int icesBroken;
 
 
     public GameObject[] iceHoles;
@@ -65,6 +64,16 @@ public class GameHandlerScript : MonoBehaviour {
             gameTimer.text = Add0s(minutes) + ":" + Add0s(seconds);
         }
 
+        if(icesBroken < breakIces.Length) { 
+            if(totalTime < breakIces[icesBroken])
+            {
+                //break ice
+                iceHoles[icesBroken].GetComponent<IceScript>().StartSinking();
+                icesBroken++;
+
+            }
+        }
+        /*
         if (totalTime < breakIce1 && !iceBroken1)
         {
             iceBroken1 = true;
@@ -77,6 +86,7 @@ public class GameHandlerScript : MonoBehaviour {
             //break ice
             iceHoles[1].GetComponent<IceScript>().StartSinking();
         }
+        */
         if (totalTime <= 0 && points[0] != points[1])
         {
             //SceneManager.LoadScene("EndScene");
