@@ -35,7 +35,7 @@ public class SealSpawnScript : MonoBehaviour {
             currentSeal = SpawnSeal();
         }
 
-        if (Input.GetKeyDown(KeyCode.E)) //Test code
+        if (Input.GetKeyDown(KeyCode.L)) //Test code
         {
             SpawnSeal();
         }
