@@ -30,6 +30,7 @@ public class RocketScript : MonoBehaviour {
 
     public float bounceMultiplierP1 = 0.3f; //this factor only applies to Player 1, as bouncing is handled only by that player
     public float extraGravityMultiplier = 100f;
+    public float baseSpeed = 2.5f;
 
     public STATE state = STATE.ALIVE;
     public enum STATE
@@ -165,6 +166,15 @@ public class RocketScript : MonoBehaviour {
             if (transform.position.y < 1.5f) { //prevents the player from moving when inside the igloo
                 float moveFactor = Input.GetAxis(inputVerticalAxis) < 0 ? backwardsMoveFactor : 1;
                 rb.AddForce(transform.forward * thrust * Input.GetAxis(inputVerticalAxis) * moveFactor, ForceMode.Force);
+
+                //if speed is too small at the beginning, accelerate it to that minimum speed
+                if(gameObject.tag.Equals("Player2")) print(rb.velocity.magnitude);
+
+                if(rb.velocity.magnitude < baseSpeed-0.1f && Input.GetAxis(inputVerticalAxis) > 0) 
+                {
+                    //push that shit
+                    rb.velocity = transform.forward.normalized * baseSpeed;
+                }
 
                 
                 if (Input.GetAxis(inputVerticalAxis) > 0)
