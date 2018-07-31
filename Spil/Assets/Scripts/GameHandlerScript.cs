@@ -21,7 +21,8 @@ public class GameHandlerScript : MonoBehaviour {
     public GameObject[] iceHoles;
 
     float[] respawnTimes = new float[2];
-
+    public GameObject Player1Seals;
+    public GameObject Player2Seals;
 
     public GameDataScript gameDataScript; //keeps track of points and passes it on to the end screen
     
@@ -124,6 +125,7 @@ public class GameHandlerScript : MonoBehaviour {
         points[playerNumber-1]++;
         Draw();
         gameDataScript.points = points;
+        SealPoints(playerNumber);
     }
     
 
@@ -133,4 +135,34 @@ public class GameHandlerScript : MonoBehaviour {
         P2Text.text = "Player 2: " + points[1] + " ";
     }
 
+
+    private void SealPoints(int PlayerNumber)
+    {
+        PointSealScript[] pointSeals;
+        if (PlayerNumber == 1)
+        {
+            pointSeals = Player1Seals.GetComponentsInChildren<PointSealScript>();
+
+            foreach(PointSealScript p in pointSeals)
+            {
+                if (p.SealNumber == points[PlayerNumber - 1])
+                {
+                    p.gameObject.GetComponentInChildren<MeshRenderer>().enabled = true;
+                }
+            }
+        }
+
+        if (PlayerNumber == 2)
+        {
+            pointSeals = Player2Seals.GetComponentsInChildren<PointSealScript>();
+
+            foreach (PointSealScript p in pointSeals)
+            {
+                if (p.SealNumber == points[PlayerNumber - 1])
+                {
+                    p.gameObject.GetComponentInChildren<MeshRenderer>().enabled = true;
+                }
+            }
+        }
+    }
 }
