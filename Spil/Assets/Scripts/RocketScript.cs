@@ -14,6 +14,9 @@ public class RocketScript : MonoBehaviour {
     public float respawnTime;
     public float initialPushOutOfIgloo = 20;
     private float respawnCounter = -1;
+    public GameObject respawnAudioSource;
+    public GameObject DeathSound;
+    public GameObject RocketSound;
 
     private Vector3 spawnPoint;
     private Quaternion spawnRotation;
@@ -76,7 +79,15 @@ public class RocketScript : MonoBehaviour {
     void Update () {
         if (transform.position.y < killDepth) //player has fallen in the water. it is now dead.
         {
+            if (state != STATE.DEAD)
+            {
+                respawnAudioSource.GetComponent<AudioSource>().PlayDelayed(1f);
+                DeathSound.GetComponent<AudioSource>().Play();
+            }
+            print("You're dead!");
             state = STATE.DEAD;
+
+            
         }else if(transform.position.y < respawnHeight)
         {
             state = STATE.ALIVE;
@@ -121,8 +132,8 @@ public class RocketScript : MonoBehaviour {
     private void PushOutOfIgloo() {
         rb.AddForce(transform.forward * initialPushOutOfIgloo, ForceMode.VelocityChange);
     }
-    
 
+    bool rocketAudioPlaying = false;
     private void FixedUpdate()
     {
         if(state == STATE.ALIVE) {
@@ -135,10 +146,16 @@ public class RocketScript : MonoBehaviour {
                 if (Input.GetAxis(inputVerticalAxis) > 0)
                 {
                     p.Play();
+                    if (!rocketAudioPlaying) { 
+                        RocketSound.GetComponent<AudioSource>().Play();
+                        rocketAudioPlaying = true;
+                    }
                 }
                 else
                 {
                     p.Stop();
+                    RocketSound.GetComponent<AudioSource>().Stop();
+                    rocketAudioPlaying = false;
                 }
             }
 

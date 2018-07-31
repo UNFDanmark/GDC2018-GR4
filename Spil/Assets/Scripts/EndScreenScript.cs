@@ -13,6 +13,10 @@ public class EndScreenScript : MonoBehaviour {
 	// Use this for initialization
     public void Start()
     {
+
+        //add listener for buttons
+        restart.onClick.AddListener(OnClickRestart);
+        if (GameObject.FindGameObjectWithTag("GameData") == null) return;
         //add win message
         int[] points = GameObject.FindGameObjectWithTag("GameData").GetComponent<GameDataScript>().points;
 
@@ -35,8 +39,6 @@ public class EndScreenScript : MonoBehaviour {
         }
         message.text = winMessage;
 
-        //add listener for buttons
-        restart.onClick.AddListener(OnClickRestart);
     }
 
     public void OnClickRestart()
@@ -47,6 +49,10 @@ public class EndScreenScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
-	}
+        if (Input.GetAxis("Cancel") > 0)
+        {
+            //escape the map
+            Application.Quit();
+        }
+    }
 }

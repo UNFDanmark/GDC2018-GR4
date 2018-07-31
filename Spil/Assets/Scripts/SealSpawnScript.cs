@@ -10,6 +10,7 @@ public class SealSpawnScript : MonoBehaviour {
     public Vector3 l2 = new Vector3(-5+ offset,     spawndepth, -18.7f);
     public Vector3 l3 = new Vector3(-15.7f- offset, spawndepth, -18);
     public Vector3 l4 = new Vector3(23+ offset,     spawndepth, 6.75f);
+    public GameObject SealAudioSource;
 
     public GameObject seal;
 
@@ -53,6 +54,7 @@ public class SealSpawnScript : MonoBehaviour {
 
     public GameObject SpawnSeal()
     {
+        SealAudioSource.GetComponent<AudioSource>().Play();
         GameObject added = Instantiate(seal);
         if (Random.Range(0, 2) == 0) { 
 

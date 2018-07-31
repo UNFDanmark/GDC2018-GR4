@@ -14,6 +14,8 @@ public class IceScript : MonoBehaviour {
     }
 
     public GameObject snapSound;
+    public GameObject SplashSound;
+
 
     public STATE state = STATE.ALIVE;
 
@@ -74,6 +76,7 @@ public class IceScript : MonoBehaviour {
             {
                 SetState(STATE.SINKING);
                 localScale = gameObject.transform.localScale;
+                SplashSound.GetComponent<AudioSource>().Play();
 
             }
         }else if(state == STATE.SINKING)

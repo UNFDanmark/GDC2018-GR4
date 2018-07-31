@@ -17,10 +17,21 @@ public class StartScreenScript : MonoBehaviour {
         restart.onClick.AddListener(OnClickRestart);
     }
 
+    public void Update()
+    {
+        if (Input.GetAxis("Cancel") > 0)
+        {
+            //escape the map
+            Application.Quit();
+        }
+    }
+
     public void OnClickRestart()
     {
         print("Hey");
         SceneManager.LoadScene("MainScene efter is");
+
+
     }
 
 }
