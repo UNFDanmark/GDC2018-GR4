@@ -21,6 +21,9 @@ public class RocketScript : MonoBehaviour {
     private Vector3 spawnPoint;
     private Quaternion spawnRotation;
 
+    public GameObject collisionParticlesP1;
+    public float collisionThresholdP1=4;
+
 
     public GameHandlerScript gameHandler;
     public int playerNumber;
@@ -77,10 +80,20 @@ public class RocketScript : MonoBehaviour {
 
         if (collision.gameObject.tag.Equals("Player2"))
         {
-            print("DO THE BOUNCE!");
+            print("DO THE BOUNCE! " + collision.relativeVelocity.magnitude);
             Vector3 normal = gameObject.transform.position - collision.gameObject.transform.position;
             collision.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.Reflect(collision.gameObject.transform.forward, normal) * bounceMultiplierP1, ForceMode.Impulse);
             gameObject.GetComponent<Rigidbody>().AddForce(Vector3.Reflect(transform.forward, normal) * bounceMultiplierP1, ForceMode.Impulse);
+
+            //collision particles
+            Vector3 particlesPosition = (collision.gameObject.transform.position + gameObject.transform.position) * 0.5f;
+            collisionParticlesP1.transform.position = particlesPosition;
+            collisionParticlesP1.GetComponent<ParticleSystem>().Play();
+            
+            //collisionParticlesP1.GetComponent<ParticleSystem>().sizeOverLifetime.sizeMultiplier = collision.relativeVelocity;
+            //TODO collision sound
+
+
         }
     }
     
@@ -98,7 +111,7 @@ public class RocketScript : MonoBehaviour {
                 respawnAudioSource.GetComponent<AudioSource>().PlayDelayed(1f);
                 DeathSound.GetComponent<AudioSource>().Play();
             }
-            print("You're dead!");
+            //print("You're dead!");
             state = STATE.DEAD;
 
 
@@ -110,8 +123,12 @@ public class RocketScript : MonoBehaviour {
 
         if (extraFall)
         {
-            rb.AddForce(-rb.velocity.x, -1 * extraGravityMultiplier * (IsIn(-6.6f,18,rb.position.x)?1:0), -rb.velocity.z * (IsIn(-14.9f, 0.4f, rb.position.z) ? 1 : 0), ForceMode.Acceleration);
-            print("extra fall being added");
+            rb.AddForce(
+                    -rb.velocity.x, 
+                    -1 * extraGravityMultiplier * (IsIn(-6.6f,18,rb.position.x) || rb.position.z>1.19f?1:0), 
+                    -rb.velocity.z * (IsIn(-14.9f, 0.4f, rb.position.z) || rb.position.z > 1.19f ? 1 : 0), 
+                    ForceMode.Acceleration);
+            //print("extra fall being added");
         }
 
 
@@ -168,7 +185,7 @@ public class RocketScript : MonoBehaviour {
                 rb.AddForce(transform.forward * thrust * Input.GetAxis(inputVerticalAxis) * moveFactor, ForceMode.Force);
 
                 //if speed is too small at the beginning, accelerate it to that minimum speed
-                if(gameObject.tag.Equals("Player2")) print(rb.velocity.magnitude);
+                //if(gameObject.tag.Equals("Player2")) print(rb.velocity.magnitude);
 
                 if(rb.velocity.magnitude < baseSpeed-0.1f && Input.GetAxis(inputVerticalAxis) > 0) 
                 {

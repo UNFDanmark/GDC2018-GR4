@@ -34,6 +34,9 @@ public class IceScript : MonoBehaviour {
     private Vector3 localScale;
     private Vector3 dir;
 
+    public bool isSidehole3 = false;
+    public float sideHoleFactor = 0.2f;
+
     private void SetState(STATE state)
     {
         this.state = state;
@@ -56,10 +59,15 @@ public class IceScript : MonoBehaviour {
         localScale = gameObject.transform.localScale;
         dir = transform.forward;
     }
-    
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void Start()
+    {
+        //if (isSidehole3) shrinkFactor = 0.9f;
+    }
+
+
+    // Update is called once per frame
+    void Update () {
         if (Input.GetKey(KeyCode.P))
         {
             StartSinking();
@@ -70,7 +78,17 @@ public class IceScript : MonoBehaviour {
         {
 
             float shrink = (shrinkFactor - 1) / shrinkingTime * deltaTime + 1;
-            gameObject.transform.localScale = new Vector3(localScale.x * shrink, localScale.y*shrink, localScale.z);
+
+            if (isSidehole3)
+            {
+                gameObject.transform.position += new Vector3(-Time.deltaTime * sideHoleFactor, 0, 0);
+            }
+
+            gameObject.transform.localScale = new Vector3(localScale.x * shrink, localScale.y * shrink, localScale.z);
+            
+
+
+
 
             if(deltaTime > shrinkingTime)
             {
@@ -81,7 +99,6 @@ public class IceScript : MonoBehaviour {
             }
         }else if(state == STATE.SINKING)
         {
-
             float sink = (sinkFactor - 1) / sinkingTime * deltaTime + 1;
             gameObject.transform.localScale = new Vector3(localScale.x, localScale.y, localScale.z*sink);
             if(deltaTime > sinkingTime)
