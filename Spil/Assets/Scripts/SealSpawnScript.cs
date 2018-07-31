@@ -52,9 +52,12 @@ public class SealSpawnScript : MonoBehaviour {
         return target;
     }
 
+    bool hasSpawnedFirstSeal = false;
     public GameObject SpawnSeal()
     {
-        SealAudioSource.GetComponent<AudioSource>().Play();
+        if(hasSpawnedFirstSeal) SealAudioSource.GetComponent<AudioSource>().Play();
+        else hasSpawnedFirstSeal = true;
+
         GameObject added = Instantiate(seal);
         if (Random.Range(0, 2) == 0) { 
 
