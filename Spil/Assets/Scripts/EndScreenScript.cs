@@ -17,24 +17,22 @@ public class EndScreenScript : MonoBehaviour {
         int[] points = GameObject.FindGameObjectWithTag("GameData").GetComponent<GameDataScript>().points;
 
         string winMessage = "";
-        
+        print(points[0] + " " + points[1]);
         if (points[0] == points[1])
         {
-            //both players had equal points when time ran out
-            //TODO make sudden death mode?
-
-            winMessage = "DRAW";
+            //both players had equal points when time ran out. this does not happen.
+            
+            winMessage += "";
         }else if (points[0] > points[1])
         {
-            //player 1 had the most points
-            winMessage = "Player 1 won!";
+            //player 1 (purple) had the most points
+            winMessage = "green: " + points[0] + "\nPurple: " + points[1];
         }
         else
         {
-            //player 2 had the most points
-            winMessage = "Player 2 won!";
+            //player 2 (green) had the most points
+            winMessage = "Purple: " + points[1] + "\nGreen: " + points[0];
         }
-        winMessage += "\nPlayer 1: " + points[0] + " Player 2: " + points[1];
         message.text = winMessage;
 
         //add listener for buttons

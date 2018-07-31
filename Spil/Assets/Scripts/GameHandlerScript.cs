@@ -77,12 +77,12 @@ public class GameHandlerScript : MonoBehaviour {
             //SceneManager.LoadScene("EndScene");
             if (points[0] > points[1])
             {
-                SceneManager.LoadScene("EndScene Lilla");
+                SceneManager.LoadScene("EndScene Lilla"); //p1 er lilla
 
             }
             else
             {
-                SceneManager.LoadScene("EndScene Grøn");
+                SceneManager.LoadScene("EndScene Grøn"); //p2 er groen
             }
         }
     }
