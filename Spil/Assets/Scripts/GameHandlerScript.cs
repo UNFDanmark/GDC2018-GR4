@@ -34,12 +34,12 @@ public class GameHandlerScript : MonoBehaviour {
         if (respawnTimes[0] > 0)
         {
 
-            P1Text.text += "\nYou respawn in: " + Mathf.CeilToInt(respawnTimes[0]);
+            P1Text.text = "You respawn in: " + Mathf.CeilToInt(respawnTimes[0]);
         }
         if (respawnTimes[1] > 0)
         {
 
-            P2Text.text += "\nYou respawn in: " + Mathf.CeilToInt(respawnTimes[1]);
+            P2Text.text = "You respawn in: " + Mathf.CeilToInt(respawnTimes[1]);
         }
     }
 
@@ -131,8 +131,8 @@ public class GameHandlerScript : MonoBehaviour {
 
     private void Draw()
     {
-        P1Text.text = "Player 1: " + points[0] + " ";
-        P2Text.text = "Player 2: " + points[1] + " ";
+        P1Text.text = "";
+        P2Text.text = "";
     }
 
 
