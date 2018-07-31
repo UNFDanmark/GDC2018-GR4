@@ -23,6 +23,7 @@ public class RocketScript : MonoBehaviour {
 
     public GameObject collisionParticlesP1;
     public float collisionThresholdP1=4;
+    public GameObject collisionSound;
 
 
     public GameHandlerScript gameHandler;
@@ -85,14 +86,18 @@ public class RocketScript : MonoBehaviour {
             collision.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.Reflect(collision.gameObject.transform.forward, normal) * bounceMultiplierP1, ForceMode.Impulse);
             gameObject.GetComponent<Rigidbody>().AddForce(Vector3.Reflect(transform.forward, normal) * bounceMultiplierP1, ForceMode.Impulse);
 
-            //collision particles
-            Vector3 particlesPosition = (collision.gameObject.transform.position + gameObject.transform.position) * 0.5f;
-            collisionParticlesP1.transform.position = particlesPosition;
-            collisionParticlesP1.GetComponent<ParticleSystem>().Play();
             
-            //collisionParticlesP1.GetComponent<ParticleSystem>().sizeOverLifetime.sizeMultiplier = collision.relativeVelocity;
-            //TODO collision sound
+            
+            if(collision.relativeVelocity.magnitude > collisionThresholdP1)
+            {
+                // collision sound
+                collisionSound.GetComponent<AudioSource>().Play();
 
+                //collision particles
+                Vector3 particlesPosition = (collision.gameObject.transform.position + gameObject.transform.position) * 0.5f;
+                collisionParticlesP1.transform.position = particlesPosition;
+                collisionParticlesP1.GetComponent<ParticleSystem>().Play();
+            }
 
         }
     }
@@ -128,7 +133,8 @@ public class RocketScript : MonoBehaviour {
                     -1 * extraGravityMultiplier * (IsIn(-6.6f,18,rb.position.x) || rb.position.z>1.19f?1:0), 
                     -rb.velocity.z * (IsIn(-14.9f, 0.4f, rb.position.z) || rb.position.z > 1.19f ? 1 : 0), 
                     ForceMode.Acceleration);
-            //print("extra fall being added");
+
+            print("extra fall being added");
         }
 
 

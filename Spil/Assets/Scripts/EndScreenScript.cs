@@ -18,8 +18,15 @@ public class EndScreenScript : MonoBehaviour {
         restart.onClick.AddListener(OnClickRestart);
         if (GameObject.FindGameObjectWithTag("GameData") == null) return;
         //add win message
-        int[] points = GameObject.FindGameObjectWithTag("GameData").GetComponent<GameDataScript>().points;
 
+        int[] points = null;
+
+        foreach(GameObject g in GameObject.FindGameObjectsWithTag("GameData"))
+        {
+            int[] v = g.GetComponent<GameDataScript>().points;
+            if (v[0] != v[1]) points = v;
+        }
+        
         string winMessage = "";
         print(points[0] + " " + points[1]);
         if (points[0] == points[1])
@@ -43,7 +50,10 @@ public class EndScreenScript : MonoBehaviour {
 
     public void OnClickRestart()
     {
-        Destroy(GameObject.FindGameObjectWithTag("GameData"));
+        foreach(GameObject g in GameObject.FindGameObjectsWithTag("GameData"))
+        {
+            Destroy(g);
+        }   
         SceneManager.LoadScene("MainScene efter is");
     }
 
