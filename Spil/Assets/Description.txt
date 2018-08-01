@@ -1,0 +1,8 @@
+Du er en sulten eskimo på Grønland så derfor skal du ud på isen for at fange sæler, men på grund af global opvarmning skal du skynde dig, inden isen smelter.
+Så du tager din raketdrevne slæde med ud på isen, for det skal gå hurtigt.
+Men du er ikke den eneste der er sulten, din nabo har også en raketdrevet slæde. Så hvis du ikke vil sulte skal sælfangsten gå stærkt.
+
+Spillet er et multi-player brawl spil, hvor du skøjter rundt ude på en isflage og skal fange flere sæler end din modspiller, inden isen smelter.
+Slæderne skøjter rundt, som raketdrevne radiobiler på glatis, og det er muligt at få et forspring med sælfangsten, ved at skubbe din modspiller i vandet.
+spillet spilles vedhjælp af "WASD" (Player 1) og piletasterne (Player 2).
+God jagt.
